@@ -5,7 +5,7 @@ const maxRecords = 151
 const limit = 10
 let offset = 0;
 
-function convertPokemonToLi(pokemon) {
+/*function convertPokemonToLi(pokemon) {
     return `
         <li class="pokemon ${pokemon.type}">
             <span class="number">#${pokemon.number}</span>
@@ -21,13 +21,58 @@ function convertPokemonToLi(pokemon) {
             </div>
         </li>
     `
+}*/
+
+function convertPokemonToLi(pokemon, clickHandler) {
+    const liElement = document.createElement('li');
+    liElement.classList.add('pokemon', pokemon.type);
+
+    liElement.addEventListener('click', function() {
+        // Chama o manipulador de eventos passando o pokemon como parâmetro
+        clickHandler(pokemon);
+    });
+
+    const numberSpan = document.createElement('span');
+    numberSpan.classList.add('number');
+    numberSpan.textContent = `#${pokemon.number}`;
+    liElement.appendChild(numberSpan);
+
+    const nameSpan = document.createElement('span');
+    nameSpan.classList.add('name');
+    nameSpan.textContent = pokemon.name;
+    liElement.appendChild(nameSpan);
+
+    const detailDiv = document.createElement('div');
+    detailDiv.classList.add('detail');
+
+    const typesOl = document.createElement('ol');
+    typesOl.classList.add('types');
+    pokemon.types.forEach(function(type) {
+        const typeLi = document.createElement('li');
+        typeLi.classList.add('type', type);
+        typeLi.textContent = type;
+        typesOl.appendChild(typeLi);
+    });
+    detailDiv.appendChild(typesOl);
+
+    const imgElement = document.createElement('img');
+    imgElement.src = pokemon.photo;
+    imgElement.alt = pokemon.name;
+    detailDiv.appendChild(imgElement);
+
+    liElement.appendChild(detailDiv);
+
+    return liElement;
 }
 
 function loadPokemonItens(offset, limit) {
     pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
-        const newHtml = pokemons.map(convertPokemonToLi).join('')
-        pokemonList.innerHTML += newHtml
+        pokemons.forEach(pokemon => pokemonList.appendChild(convertPokemonToLi(pokemon, handlePokemonClick)))
     })
+}
+
+function handlePokemonClick(pokemon) {
+    window.location.href = '/pages/pokemon-datail.html?number=' + pokemon.number
 }
 
 loadPokemonItens(offset, limit)
