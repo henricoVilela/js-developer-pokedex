@@ -18,6 +18,10 @@ body {
     width: 100px;
 }
 
+.mr-1r {
+    margin-right: 1rem;
+}
+
 @media screen and (min-width: 992px) {
     .content {
         max-width: 992px;

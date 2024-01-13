@@ -33,6 +33,11 @@ function convertCmToFeet(cm) {
     return pe + "'" + restoPolegadas.toFixed(1) + "\"";
 }
 
+function convertOctToPercent(oct) {
+    const conversionFactor = 8;
+    return ((oct / conversionFactor) * 100).toFixed(2);
+}
+
 function hideDetailsBody() {
     document.querySelectorAll('.card-detail .body').forEach(detailBody => {
         detailBody.style.display = 'none';
@@ -89,11 +94,16 @@ function initPokemonDetail() {
 
         const kg = convertHecToKg(pokeDetail.weight);
         const cm = convertDecToCm(pokeDetail.height);
+        const femaleRate = convertOctToPercent(pokeDetail.species.genderRate);
+        const maleRate = 100 - femaleRate;
 
         document.getElementById('poke_species').innerText = pokeDetail.species.name;
         document.getElementById('poke_height').innerText = `${convertCmToFeet(cm)} (${cm} cm)`;
         document.getElementById('poke_weight').innerText = `${convertKgToLbs(kg)} lbs (${kg} kg)`;
         document.getElementById('poke_abilities').innerText = pokeDetail.abilities;
+        document.getElementById('poke_gender_rate_male').innerText = `${maleRate}%`;
+        document.getElementById('poke_gender_rate_femenine').innerText = `${femaleRate}%`;
+        document.getElementById('poke_egg_groups').innerText = pokeDetail.species.eggGroups;
     } 
 
     if (pokemonNumber) {

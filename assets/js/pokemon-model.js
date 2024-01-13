@@ -13,3 +13,8 @@ class Pokemon {
     abilities = [];
 }
 
+class PokemonSpecies {
+    name;
+    eggGroups;
+    genderRate;
+}

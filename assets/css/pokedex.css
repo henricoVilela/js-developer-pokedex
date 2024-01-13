@@ -223,7 +223,7 @@
 }
 
 .card-detail {
-    max-height: 55vh;
+    min-height: 50vh;
     height: 50vh;
     background-color: white;
     border-radius: 2rem;
@@ -252,5 +252,11 @@
     margin: .5rem 0;
 }
 
+.card-detail .body .gender {
+    display: inline-block;
+}
 
+.gender img {
+    vertical-align: middle;
+}
 

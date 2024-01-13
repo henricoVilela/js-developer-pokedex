@@ -21,16 +21,33 @@ function convertPokeApiDetailToPokemon(pokeDetail) {
     return pokemon
 }
 
+function setPokemonSpecies(pokemon, pokeSpecies) {
+    const species = new PokemonSpecies();
+    species.name = pokeSpecies.name;
+    species.genderRate = pokeSpecies.gender_rate;
+    species.eggGroups = pokeSpecies.egg_groups.map(group => group.name).join(', ');
+
+    pokemon.species = species;
+    return pokemon;
+}
+
 pokeApi.getPokemonDetailByNumber = (pokemonNumber) => {
     return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}/`)
         .then((response) => response.json())
         .then(convertPokeApiDetailToPokemon)
+        .then(pokeApi.getPokemonSpecies)
 }
 
 pokeApi.getPokemonDetail = (pokemon) => {
     return fetch(pokemon.url)
         .then((response) => response.json())
         .then(convertPokeApiDetailToPokemon)
+}
+
+pokeApi.getPokemonSpecies = (pokemon) => {
+    return fetch(pokemon.species.url)
+        .then((response) => response.json())
+        .then((pokeSpecies) => setPokemonSpecies(pokemon, pokeSpecies))
 }
 
 pokeApi.getPokemons = (offset = 0, limit = 5) => {
