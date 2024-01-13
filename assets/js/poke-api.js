@@ -32,10 +32,13 @@ function setPokemonSpecies(pokemon, pokeSpecies) {
 }
 
 pokeApi.getPokemonDetailByNumber = (pokemonNumber) => {
+    utils.exibirLoading();
+
     return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}/`)
         .then((response) => response.json())
         .then(convertPokeApiDetailToPokemon)
         .then(pokeApi.getPokemonSpecies)
+        .finally(() => utils.ocultarLoading())
 }
 
 pokeApi.getPokemonDetail = (pokemon) => {

@@ -24,7 +24,7 @@
 </head>
 
 <body>
-
+    
     <section id="pokemon-detail-content" class="content">
         <header class="header">
             <button class="btn_back" onclick="backToHome()">
@@ -102,8 +102,13 @@
         </div>
     </section>
 
+    <div id="loading-overlay">
+        <div id="loading-message">Aguade carregando...</div>
+    </div>
+
     <!-- Nosso JS -->
     <script src="/assets/js/pokemon-model.js"></script>
+    <script src="/assets/js/utils.js"></script>
     <script src="/assets/js/poke-api.js"></script>
     <script src="/assets/js/pokemon-detail.js"></script>
 </body>
