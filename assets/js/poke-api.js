@@ -20,6 +20,7 @@ function convertPokeApiDetailToPokemon(pokeDetail) {
 pokeApi.getPokemonDetailByNumber = (pokemonNumber) => {
     return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}/`)
         .then((response) => response.json())
+        .then(convertPokeApiDetailToPokemon)
 }
 
 pokeApi.getPokemonDetail = (pokemon) => {

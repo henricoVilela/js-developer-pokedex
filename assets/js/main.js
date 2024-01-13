@@ -55,7 +55,7 @@ function loadPokemonItens(offset, limit) {
 }
 
 function handlePokemonClick(pokemon) {
-    window.location.href = '/pages/pokemon-datail.html?number=' + pokemon.number
+    window.location.href = '/pages/pokemon-detail.html?number=' + pokemon.number
 }
 
 loadPokemonItens(offset, limit)
