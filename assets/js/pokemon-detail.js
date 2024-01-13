@@ -106,6 +106,43 @@ function initPokemonDetail() {
         document.getElementById('poke_egg_groups').innerText = pokeDetail.species.eggGroups;
     } 
 
+    function addBasicStats(pokeDetail) {
+        const pokeBasicStats = document.querySelector('.base-stats');
+
+        function createElementsToBasicStats(pokeState) {
+            const colorFromStat = (pokeState.baseStat >= 50) ? 'green' : 'red';
+
+            const labelStat = document.createElement('span');
+            labelStat.classList.add('label');
+            labelStat.style.width = '100px';
+            labelStat.style.fontSize = 'small';
+            labelStat.textContent = pokeState.name.replace('special-', 'sp. ');
+
+            const valueStat = document.createElement('span');
+            valueStat.classList.add('value', 'mr-1r');
+            valueStat.textContent = pokeState.baseStat;
+
+            const progressBar = document.createElement('div');
+            progressBar.classList.add('progress-bar');
+
+            const progressValue = document.createElement('div');
+            progressValue.classList.add('progress-value', colorFromStat);
+            progressValue.style.width = `${pokeState.baseStat}%`;
+            progressBar.appendChild(progressValue);
+
+            const br = document.createElement('div');
+            br.classList.add('br');
+
+            pokeBasicStats.appendChild(labelStat);
+            pokeBasicStats.appendChild(valueStat);
+            pokeBasicStats.appendChild(progressBar);
+            pokeBasicStats.appendChild(br);
+        }
+
+        pokeDetail.stats.forEach(createElementsToBasicStats);
+
+    }
+
     if (pokemonNumber) {
         pokeApi.getPokemonDetailByNumber(pokemonNumber).then(pokeDetail => {
 
@@ -117,6 +154,7 @@ function initPokemonDetail() {
             addTypesIntoPokemonDetail(pokeDetail);
             addFigurePokemonDetail(pokeDetail);
             addPropertiesToAboutDetail(pokeDetail);
+            addBasicStats(pokeDetail);
         });
     }
 }

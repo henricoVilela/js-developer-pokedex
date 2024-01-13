@@ -240,6 +240,7 @@
     font-size: .9rem;
     color: #c5c5c5;
     display: inline-block;
+    text-transform: capitalize;
 }
 
 .card-detail .body .value {
@@ -258,4 +259,28 @@
 
 .gender img {
     vertical-align: middle;
+}
+
+.progress-bar {
+    width: 50%;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    height: 5px;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.progress-value {
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.progress-value.green {
+    background-color: #25b929;
+}
+
+.progress-value.red {
+    background-color: #b41d1d;
 }

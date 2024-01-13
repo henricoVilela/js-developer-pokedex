@@ -11,6 +11,7 @@ class Pokemon {
     weight;
     species = {};
     abilities = [];
+    stats = [];
 }
 
 class PokemonSpecies {
