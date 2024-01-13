@@ -5,62 +5,45 @@ const maxRecords = 151
 const limit = 10
 let offset = 0;
 
-/*function convertPokemonToLi(pokemon) {
-    return `
-        <li class="pokemon ${pokemon.type}">
-            <span class="number">#${pokemon.number}</span>
-            <span class="name">${pokemon.name}</span>
-
-            <div class="detail">
-                <ol class="types">
-                    ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
-                </ol>
-
-                <img src="${pokemon.photo}"
-                     alt="${pokemon.name}">
-            </div>
-        </li>
-    `
-}*/
-
 function convertPokemonToLi(pokemon, clickHandler) {
     const liElement = document.createElement('li');
     liElement.classList.add('pokemon', pokemon.type);
 
     liElement.addEventListener('click', function() {
-        // Chama o manipulador de eventos passando o pokemon como parâmetro
         clickHandler(pokemon);
     });
 
-    const numberSpan = document.createElement('span');
-    numberSpan.classList.add('number');
-    numberSpan.textContent = `#${pokemon.number}`;
-    liElement.appendChild(numberSpan);
+    const pokemonNumber = document.createElement('span');
+    pokemonNumber.classList.add('number');
+    pokemonNumber.textContent = `#${pokemon.number}`;
+    liElement.appendChild(pokemonNumber);
 
-    const nameSpan = document.createElement('span');
-    nameSpan.classList.add('name');
-    nameSpan.textContent = pokemon.name;
-    liElement.appendChild(nameSpan);
+    const pokemonName = document.createElement('span');
+    pokemonName.classList.add('name');
+    pokemonName.textContent = pokemon.name;
+    liElement.appendChild(pokemonName);
 
-    const detailDiv = document.createElement('div');
-    detailDiv.classList.add('detail');
+    const pokemonDetail = document.createElement('div');
+    pokemonDetail.classList.add('detail');
 
-    const typesOl = document.createElement('ol');
-    typesOl.classList.add('types');
+    const pokemonTypes = document.createElement('ol');
+    pokemonTypes.classList.add('types');
+
     pokemon.types.forEach(function(type) {
         const typeLi = document.createElement('li');
         typeLi.classList.add('type', type);
         typeLi.textContent = type;
-        typesOl.appendChild(typeLi);
+        pokemonTypes.appendChild(typeLi);
     });
-    detailDiv.appendChild(typesOl);
 
-    const imgElement = document.createElement('img');
-    imgElement.src = pokemon.photo;
-    imgElement.alt = pokemon.name;
-    detailDiv.appendChild(imgElement);
+    pokemonDetail.appendChild(pokemonTypes);
 
-    liElement.appendChild(detailDiv);
+    const pokemonFigure = document.createElement('img');
+    pokemonFigure.src = pokemon.photo;
+    pokemonFigure.alt = pokemon.name;
+    pokemonDetail.appendChild(pokemonFigure);
+
+    liElement.appendChild(pokemonDetail);
 
     return liElement;
 }
