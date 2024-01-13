@@ -1,0 +1,34 @@
+#menu {
+    padding-top: 2rem;
+}
+
+#menu-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+}
+
+#menu-list li {
+    color: #c5c5c5;
+    padding: 0.5rem;
+    cursor: pointer;
+    border-bottom: 1px solid #cdcdcd;
+}
+
+#menu-list li.selected {
+    color: black;
+    border-bottom: 2px solid rgb(22, 73, 238);
+}
+
+#menu-list li:hover {
+    color: black;
+}
+
+#menu-list li:first-child {
+    padding-left: 0; 
+}
+
+#menu-list li:last-child {
+    padding-right: 0;
+}

@@ -20,6 +20,7 @@
     <!-- Nosso CSS -->
     <link rel="stylesheet" href="/assets/css/global.css">
     <link rel="stylesheet" href="/assets/css/pokedex.css">
+    <link rel="stylesheet" href="/assets/css/menu.css">
 </head>
 
 <body>
@@ -34,15 +35,56 @@
                 </svg>
             </button>
         </header>
-        <h1>Nome do Pokemon</h1>
+        <h1 id="poke_name">Nome do Pokemon</h1>
         <span class="number">#1</span>
 
         <div class="detail">
             <ol class="types">
-                <li class="type grass">grass</li>
-                <li class="type poison">poison</li>
+                <!-- Pokemon types here... -->
             </ol>
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg" alt="bulbasaur">
+            <!-- Pokemon figure here... -->
+        </div>
+
+        <div class="card-detail">
+            <header id="menu">
+                <ul id="menu-list">
+                    <li class="selected" data-body-class="about">About</li>
+                    <li data-body-class="base-stats">Base Stats</li>
+                    <li data-body-class="evolution">Evolution</li>
+                    <li data-body-class="movies">Movies</li>
+                 </ul>
+            </header>
+            <div class="body about">
+                <span class="label wd-100px">Species</span>
+                <span id="poke_species" class="value"></span>
+                <div class="br"></div>
+
+                <span class="label wd-100px">Height</span>
+                <span id="poke_height" class="value"></span>
+                <div class="br"></div>
+
+                <span class="label wd-100px">Weight</span>
+                <span id="poke_weight" class="value"></span>
+                <div class="br"></div>
+                <span class="label wd-100px">Abilities</span>
+                <span id="poke_abilities" class="value"></span>
+                
+            </div>
+
+            <div class="body base-stats" style="display: none;">
+                <span class="label">Hp</span>
+                <span class="value">45</span>
+            </div>
+
+            <div class="body evolution" style="display: none;">
+                <span class="label">Species</span>
+                <span class="value">Seed</span>
+            </div>
+
+            <div class="body movies" style="display: none;">
+                <span class="label">Species</span>
+                <span class="value">Seed</span>
+            </div>
         </div>
     </section>
 

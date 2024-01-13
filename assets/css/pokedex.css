@@ -147,6 +147,24 @@
     border-radius: 1rem;
 }
 
+@media screen and (min-width: 380px) {
+    .pokemons {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .pokemons {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .pokemons {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
 /*
 ##########################################################
 #################### POKEMON DETAILS ##################### 
@@ -165,11 +183,12 @@
 #pokemon-detail-content h1 {
     color: #fff;
     margin-bottom: 0.3rem;
+    text-transform: capitalize;
 }
 
 #pokemon-detail-content .number {
     float: right;
-    margin-top: .5rem;
+    margin-top: .3rem;
     color: #fff;
 }
 
@@ -200,22 +219,38 @@
 
 #pokemon-detail-content .detail img {
     margin-top: 3rem;
+    max-width: 100%;
 }
 
-@media screen and (min-width: 380px) {
-    .pokemons {
-        grid-template-columns: 1fr 1fr;
-    }
+.card-detail {
+    max-height: 55vh;
+    height: 50vh;
+    background-color: white;
+    border-radius: 2rem;
+    margin-top: -2.5rem;
 }
 
-@media screen and (min-width: 576px) {
-    .pokemons {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
+.card-detail .body {
+    max-width: 287px;
+    height: auto;
+    margin: 1rem auto;
 }
 
-@media screen and (min-width: 992px) {
-    .pokemons {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
+.card-detail .body .label {
+    font-size: .9rem;
+    color: #c5c5c5;
+    display: inline-block;
 }
+
+.card-detail .body .value {
+    font-size: .9rem;
+    text-align: left;
+    text-transform: capitalize;
+}
+
+.card-detail .body .br {
+    margin: .5rem 0;
+}
+
+
+
