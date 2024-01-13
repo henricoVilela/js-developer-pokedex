@@ -192,13 +192,13 @@
     color: #fff;
 }
 
-#pokemon-detail-content .detail {
+#pokemon-detail-content .details {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#pokemon-detail-content .detail .types {
+#pokemon-detail-content .details .types {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -206,7 +206,7 @@
     align-self: flex-start;
 }
 
-#pokemon-detail-content .detail .types .type {
+#pokemon-detail-content .details .types .type {
     color: #fff;
     padding: .25rem .5rem;
     margin: .25rem 0;
@@ -217,7 +217,7 @@
     text-align: center;
 }
 
-#pokemon-detail-content .detail img {
+#pokemon-detail-content .details img {
     margin-top: 3rem;
     max-width: 100%;
 }
@@ -283,4 +283,12 @@
 
 .progress-value.red {
     background-color: #b41d1d;
+}
+
+.pokemons-evolves {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }

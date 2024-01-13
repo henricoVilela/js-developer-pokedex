@@ -55,9 +55,9 @@ function initMenuItens() {
     if (itemsMenu) {
         itemsMenu.forEach(item => {
 
-            item.addEventListener("click", function(){
+            item.addEventListener("click", function () {
 
-                itemsMenu.forEach(function(li) {
+                itemsMenu.forEach(function (li) {
                     li.classList.remove('selected');
                 });
                 item.classList.add('selected');
@@ -73,8 +73,8 @@ function initPokemonDetail() {
 
 
     function addTypesIntoPokemonDetail(pokeDetail) {
-        const pokemonTypes = document.querySelector('.detail .types');
-        pokeDetail.types.forEach(function(type) {
+        const pokemonTypes = document.querySelector('.details .types');
+        pokeDetail.types.forEach(function (type) {
             const typeLi = document.createElement('li');
             typeLi.classList.add('type', type);
             typeLi.textContent = type;
@@ -83,7 +83,7 @@ function initPokemonDetail() {
     }
 
     function addFigurePokemonDetail(pokeDetail) {
-        const pokemonDetail = document.querySelector('.detail');
+        const pokemonDetail = document.querySelector('.details');
         const pokemonFigure = document.createElement('img');
         pokemonFigure.src = pokeDetail.photo;
         pokemonFigure.alt = pokeDetail.name;
@@ -104,7 +104,7 @@ function initPokemonDetail() {
         document.getElementById('poke_gender_rate_male').innerText = `${maleRate}%`;
         document.getElementById('poke_gender_rate_femenine').innerText = `${femaleRate}%`;
         document.getElementById('poke_egg_groups').innerText = pokeDetail.species.eggGroups;
-    } 
+    }
 
     function addBasicStats(pokeDetail) {
         const pokeBasicStats = document.querySelector('.base-stats');
@@ -143,6 +143,70 @@ function initPokemonDetail() {
 
     }
 
+    function addPokemonsEvolutions(pokeDetail) {
+
+        function convertPokemonToLi(pokeEvo, clickHandler) {
+            const resultRegex = pokeEvo.species.url.match(/\/(\d+)\/$/);
+            const idEvolve = resultRegex && resultRegex[1];
+
+            const liElement = document.createElement('li');
+            liElement.classList.add('pokemon', pokeDetail.type);
+            liElement.addEventListener('click', function () {
+                clickHandler(idEvolve);
+            });
+
+            const pokemonName = document.createElement('span');
+            pokemonName.classList.add('name');
+            pokemonName.textContent = pokeEvo.species.name;
+            liElement.appendChild(pokemonName);
+
+            const pokemonDetail = document.createElement('div');
+            pokemonDetail.classList.add('detail');
+            pokemonDetail.style.alignSelf = 'end';
+
+            const pokemonFigure = document.createElement('img');
+            pokemonFigure.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${idEvolve}.svg`;
+            pokemonFigure.alt = pokeEvo.species.name;
+            pokemonFigure.style.width = '50px';
+            pokemonFigure.style.height = '50px';
+
+            pokemonDetail.appendChild(pokemonFigure);
+
+            liElement.appendChild(pokemonDetail);
+
+            return liElement;
+        }
+
+        const pokeEvolution = document.querySelector('.evolution');
+
+        const pokemonList = document.createElement('ol');
+        pokemonList.classList.add('pokemons-evolves');
+        pokeEvolution.appendChild(pokemonList);
+
+        const evolvesTo = pokeDetail.species.evolutionChain.evolvesTo;
+
+        function createEvolves(evolves) {
+            evolves.forEach(evolve => {
+                console.log(evolve);
+                if (evolve.species.name != pokeDetail.name) 
+                    pokemonList.appendChild(convertPokemonToLi(evolve, handlePokemonClick))
+                
+                if (evolve.evolves_to.length)
+                    createEvolves(evolve.evolves_to);
+
+            });
+        }
+
+        //Primeira evolução
+        if (pokeDetail.species.evolvesFromSpecies) 
+            pokemonList.appendChild(
+                convertPokemonToLi({ species: pokeDetail.species.evolutionChain.species }, handlePokemonClick)
+            );
+        
+        
+        createEvolves(evolvesTo);
+    }
+
     if (pokemonNumber) {
         pokeApi.getPokemonDetailByNumber(pokemonNumber).then(pokeDetail => {
 
@@ -155,6 +219,7 @@ function initPokemonDetail() {
             addFigurePokemonDetail(pokeDetail);
             addPropertiesToAboutDetail(pokeDetail);
             addBasicStats(pokeDetail);
+            addPokemonsEvolutions(pokeDetail);
         });
     }
 }
@@ -162,6 +227,11 @@ function initPokemonDetail() {
 function backToHome() {
     window.location.href = '/index.html';
 }
+
+function handlePokemonClick(pokeNumber) {
+    window.location.href = '/pages/pokemon-detail.html?number=' + pokeNumber
+}
+
 
 initPokemonDetail();
 initMenuItens();

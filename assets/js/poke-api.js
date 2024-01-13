@@ -29,19 +29,22 @@ function setPokemonSpecies(pokemon, pokeSpecies) {
     species.name = pokeSpecies.name;
     species.genderRate = pokeSpecies.gender_rate;
     species.eggGroups = pokeSpecies.egg_groups.map(group => group.name).join(', ');
+    species.evolutionChain = pokeSpecies.evolution_chain;
+    species.evolvesFromSpecies = pokeSpecies.evolves_from_species;
 
     pokemon.species = species;
     return pokemon;
 }
 
-pokeApi.getPokemonDetailByNumber = (pokemonNumber) => {
-    utils.exibirLoading();
+function setPokemonEvolutionChain(pokemon, pokeEvolutionChain) {
 
-    return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}/`)
-        .then((response) => response.json())
-        .then(convertPokeApiDetailToPokemon)
-        .then(pokeApi.getPokemonSpecies)
-        .finally(() => utils.ocultarLoading())
+    const evolutionChain = new PokemonEvolutionChain();
+    evolutionChain.id = pokeEvolutionChain.id;
+    evolutionChain.evolvesTo = pokeEvolutionChain.chain.evolves_to;
+    evolutionChain.species = pokeEvolutionChain.chain.species;
+
+    pokemon.species.evolutionChain = evolutionChain;
+    return pokemon;
 }
 
 pokeApi.getPokemonDetail = (pokemon) => {
@@ -54,6 +57,23 @@ pokeApi.getPokemonSpecies = (pokemon) => {
     return fetch(pokemon.species.url)
         .then((response) => response.json())
         .then((pokeSpecies) => setPokemonSpecies(pokemon, pokeSpecies))
+}
+
+pokeApi.getPokemonEvolutionChain = (pokemon) => {
+    return fetch(pokemon.species.evolutionChain.url)
+        .then((response) => response.json())
+        .then((pokeEvolutionChain) => setPokemonEvolutionChain(pokemon, pokeEvolutionChain))
+}
+
+pokeApi.getPokemonDetailByNumber = (pokemonNumber) => {
+    utils.exibirLoading();
+
+    return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}/`)
+        .then((response) => response.json())
+        .then(convertPokeApiDetailToPokemon)
+        .then(pokeApi.getPokemonSpecies)
+        .then(pokeApi.getPokemonEvolutionChain)
+        .finally(() => utils.ocultarLoading())
 }
 
 pokeApi.getPokemons = (offset = 0, limit = 5) => {
