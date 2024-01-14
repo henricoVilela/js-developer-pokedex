@@ -187,7 +187,7 @@ function initPokemonDetail() {
 
         function createEvolves(evolves) {
             evolves.forEach(evolve => {
-                console.log(evolve);
+
                 if (evolve.species.name != pokeDetail.name) 
                     pokemonList.appendChild(convertPokemonToLi(evolve, handlePokemonClick))
                 
@@ -220,9 +220,7 @@ function initPokemonDetail() {
 
     if (pokemonNumber) {
         pokeApi.getPokemonDetailByNumber(pokemonNumber).then(pokeDetail => {
-
-            console.log(pokeDetail)
-
+            
             document.getElementById('poke_name').innerText = pokeDetail.name;
 
             pokemonDetailContent.classList.add(pokeDetail.type);
