@@ -12,6 +12,7 @@ class Pokemon {
     species = {};
     abilities = [];
     stats = [];
+    moves = [];
 }
 
 class PokemonSpecies {

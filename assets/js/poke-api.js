@@ -9,6 +9,7 @@ function convertPokeApiDetailToPokemon(pokeDetail) {
     pokemon.height = pokeDetail.height
     pokemon.species = pokeDetail.species
     pokemon.abilities = pokeDetail.abilities.map(abilitie => abilitie.ability.name).join(', ');
+    pokemon.moves = pokeDetail.moves.map(mov => mov.move.name.replace('-', ' '));
     pokemon.stats = pokeDetail.stats.map(stat => {
         return { baseStat: stat.base_stat, name: stat.stat.name};
     });

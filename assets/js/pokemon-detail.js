@@ -207,6 +207,17 @@ function initPokemonDetail() {
         createEvolves(evolvesTo);
     }
 
+    function addPokemonsMoves(pokeDetail) {
+        const pokeMoves = document.querySelector('.moves');
+
+        pokeDetail.moves.forEach(move => {
+            const pokeMove = document.createElement('span');
+            pokeMove.classList.add('move');
+            pokeMove.textContent = move
+            pokeMoves.appendChild(pokeMove);
+        });
+    }
+
     if (pokemonNumber) {
         pokeApi.getPokemonDetailByNumber(pokemonNumber).then(pokeDetail => {
 
@@ -220,6 +231,7 @@ function initPokemonDetail() {
             addPropertiesToAboutDetail(pokeDetail);
             addBasicStats(pokeDetail);
             addPokemonsEvolutions(pokeDetail);
+            addPokemonsMoves(pokeDetail);
         });
     }
 }
